@@ -321,7 +321,9 @@ def textbox(page, name, pos, runs):
 
 
 def card(page, name, pos, measure, label):
-    visual(page, name, "cardVisual", pos, query={"Data": [proj(mea(measure))]}, vco=title(label))
+    # the new card shows the field name as its own label, so the field is renamed to the friendly label
+    # (displayName) instead of adding a container title that would repeat it
+    visual(page, name, "cardVisual", pos, query={"Data": [proj(mea(measure), name=label)]})
 
 
 def slicer(page, name, pos, field, label, mode="Dropdown"):
@@ -360,11 +362,11 @@ def page(pid, display, extra=None):
 def header(pid, title_text, question):
     textbox(pid, f"{pid}Title", (20, 8, 760, 62, 0), [(title_text, 18, True, INK), (question, 10, False, INK2)])
     textbox(pid, f"{pid}Note", (20, 684, 900, 34, 1), [(NOTE, 8, False, MUTED)])
-    others = [(t, lab) for t, lab in PAGES if t != pid]
-    for i, (target, label) in enumerate(others):
-        num, words = label.split(" · ")
-        short = f"{num} {words.split(' ')[0] if words.split(' ')[0] not in ('Customer', 'Data') else words.split(' ')[-1]}"
-        nav_button(pid, f"{pid}Nav{i}", (790 + i * 100, 14, 94, 34, 2 + i), target, short)
+    short = {"executive": "1 Executive", "segmentation": "2 Segments", "crosssell": "3 Cross-sell",
+             "manager": "4 Manager", "dataquality": "5 Quality"}
+    others = [t for t, _ in PAGES if t != pid]
+    for i, target in enumerate(others):
+        nav_button(pid, f"{pid}Nav{i}", (770 + i * 124, 14, 118, 36, 2 + i), target, short[target])
 
 
 # =========================================================================== report

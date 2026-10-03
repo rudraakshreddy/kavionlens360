@@ -6,6 +6,7 @@ analytical view per customer, groups customers into behaviour segments, and rank
 
 - **Live report:** <https://rudraakshreddy.github.io/kavionlens360/>
 - **Interactive dashboard:** <https://rudraakshreddy.github.io/kavionlens360/dashboard.html>
+- **Full explanation (end to end):** [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
 - **Downloads:** [report PDF](docs/downloads/KavionLens360_Report.pdf) · [executive deck PDF](docs/downloads/KavionLens360_Executive_Deck.pdf) / [PPTX](docs/downloads/KavionLens360_Executive_Deck.pptx) · [Excel MIS](docs/downloads/KavionLens360_MIS.xlsx) / [PDF](docs/downloads/KavionLens360_MIS.pdf)
 
 > Public Kaggle data ("Bank Customer Segmentation (1M+ Transactions)", an Indian bank, 2016). **Not ICICI Bank data**,
