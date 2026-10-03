@@ -1,0 +1,431 @@
+table customer_360
+	lineageTag: 577976b9-b37b-5a11-82c1-083a7bf4753b
+
+	measure 'Total Customers' = DISTINCTCOUNT(customer_360[customer_id])
+		formatString: #,0
+		lineageTag: 258a01b4-c091-5d7e-aa7d-8c6a8a71e0c8
+
+	measure 'Total Txn Value' = SUM(customer_360[total_txn_value])
+		formatString: #,0
+		lineageTag: 30f1e48d-e5e5-586b-99da-c731157650e2
+
+	measure 'Total Txns' = SUM(customer_360[txn_count])
+		formatString: #,0
+		lineageTag: 350246a3-9d68-535c-b112-c676a38fdfb5
+
+	measure 'Avg Txn Value' = DIVIDE([Total Txn Value], [Total Txns])
+		formatString: #,0
+		lineageTag: 399b4870-dbad-5cba-8ae6-00d78d7b4d19
+
+	measure 'Avg Balance' = AVERAGE(customer_360[avg_balance])
+		formatString: #,0
+		lineageTag: 1ee3c0ce-a154-5ac2-878d-516850a04530
+
+	measure 'Median Balance' = MEDIAN(customer_360[avg_balance])
+		formatString: #,0
+		lineageTag: 5254aff2-7b66-5160-8794-04800374ad14
+
+	measure 'Active Customers' = CALCULATE([Total Customers], customer_360[is_active] = TRUE())
+		formatString: #,0
+		lineageTag: 4f65387a-f59e-5cfb-afb1-d8082bdf2ad3
+
+	measure 'Active Rate' = DIVIDE([Active Customers], [Total Customers])
+		formatString: 0.0%
+		lineageTag: ce041145-fc59-58db-906c-1584b30814ad
+
+	measure 'High Value Customers' = CALCULATE([Total Customers], customer_360[is_high_value] = TRUE())
+		formatString: #,0
+		lineageTag: c5809a2a-7969-5dd6-9f96-c77adbaf885c
+
+	measure 'High Value Share' = DIVIDE([High Value Customers], [Total Customers])
+		formatString: 0.0%
+		lineageTag: 84690765-9534-5d51-938c-33613eb7b9ab
+
+	measure 'High Value Value Share' = DIVIDE(CALCULATE([Total Txn Value], customer_360[is_high_value] = TRUE()), [Total Txn Value])
+		formatString: 0.0%
+		lineageTag: 0802dabc-2642-5c38-94cf-434e77a20ea3
+
+	measure 'Dormant Customers' = CALCULATE([Total Customers], customer_360[is_dormant] = TRUE())
+		formatString: #,0
+		lineageTag: d5ebde27-371d-5035-8298-9d0367de97af
+
+	measure 'Segment Size %' = DIVIDE([Total Customers], CALCULATE([Total Customers], ALL(customer_segment[segment_name])))
+		formatString: 0.0%
+		lineageTag: 87b4fa92-71dc-59ca-92c1-4b857b9a0172
+
+	measure 'Segment Value %' = DIVIDE([Total Txn Value], CALCULATE([Total Txn Value], ALL(customer_segment[segment_name])))
+		formatString: 0.0%
+		lineageTag: 52416dab-c810-52d8-8911-2da48614b120
+
+	measure 'Txn Frequency' = DIVIDE([Total Txns], [Total Customers])
+		formatString: 0.00
+		lineageTag: 19f448fa-b812-58c8-b0e0-5ccf89a0a940
+
+	measure 'Avg Recency Days' = AVERAGE(customer_360[recency_days])
+		formatString: 0.0
+		lineageTag: 7db749eb-90fd-5486-b90f-922e74cf30ab
+
+	measure 'Avg Engagement Score' = AVERAGE(customer_360[engagement_score])
+		formatString: 0.0
+		lineageTag: b84a3d9c-5119-5602-b1a5-52dc3fa15875
+
+	measure 'Opportunity Count' = CALCULATE([Total Customers], customer_opportunity[any_signal] = TRUE())
+		formatString: #,0
+		lineageTag: 3ad0df22-e3b1-57b0-8f6d-be099da1fb80
+
+	measure 'Cross-Sell Opp Rate' = DIVIDE([Opportunity Count], [Total Customers])
+		formatString: 0.0%
+		lineageTag: 30f71888-31b4-55dc-a526-fd65ae51b5f4
+
+	measure 'Addressable Balance' = CALCULATE(SUM(customer_360[latest_balance]), customer_opportunity[any_signal] = TRUE())
+		formatString: #,0
+		lineageTag: 5f4455e1-6cb8-5af1-a8ca-bfd4127d3099
+
+	measure 'Avg Opp Score' = AVERAGE(customer_opportunity[overall_score])
+		formatString: 0.0
+		lineageTag: 1aea5bbd-b6e9-57f5-94fe-98fd47cf7378
+
+	measure 'Tier A Customers' = CALCULATE([Total Customers], customer_opportunity[tier] = "A")
+		formatString: #,0
+		lineageTag: db537da6-f02f-56b2-82b9-48f74d07b485
+
+	measure 'Tier B Customers' = CALCULATE([Total Customers], customer_opportunity[tier] = "B")
+		formatString: #,0
+		lineageTag: c15251a8-116b-5de0-a2be-8e34583ba2b4
+
+	measure 'Investment Signals' = CALCULATE([Total Customers], customer_opportunity[sig_investment] = TRUE())
+		formatString: #,0
+		lineageTag: aa24208e-bd0d-57f1-b24d-74153989b43b
+
+	measure 'Premium Signals' = CALCULATE([Total Customers], customer_opportunity[sig_premium] = TRUE())
+		formatString: #,0
+		lineageTag: e3cf3747-9a89-5015-bdca-0a5222386fa5
+
+	measure 'Credit Card Signals' = CALCULATE([Total Customers], customer_opportunity[sig_credit_card] = TRUE())
+		formatString: #,0
+		lineageTag: 6b9a0e45-97dd-5763-81b7-ad5cf31062a6
+
+	measure 'Insurance Signals' = CALCULATE([Total Customers], customer_opportunity[sig_insurance] = TRUE())
+		formatString: #,0
+		lineageTag: b63252b1-784b-58c4-8dc2-da4199b35124
+
+	measure 'Personal Loan Signals' = CALCULATE([Total Customers], customer_opportunity[sig_personal_loan] = TRUE())
+		formatString: #,0
+		lineageTag: 9c8b3a4d-22fa-50e5-acf0-98fc0e6d3737
+
+	measure 'Re-engagement Signals' = CALCULATE([Total Customers], customer_opportunity[sig_reengagement] = TRUE())
+		formatString: #,0
+		lineageTag: de7ceb64-955f-5667-ab61-df9bd71fc156
+
+	measure 'Top City Value' = MAXX(TOPN(1, VALUES(dim_location[clean_city]), [Total Txn Value]), [Total Txn Value])
+		formatString: #,0
+		lineageTag: 23d3ff46-c6cb-5c97-a490-33263d79c9a0
+
+	column customer_id
+		dataType: string
+		lineageTag: 8d5ee0b2-4f6a-5fab-af18-3437b3a2a9de
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: #,0
+		isHidden
+		lineageTag: 222c8cb4-74cb-5ae6-b3ea-493f42c747a2
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6fdf5f96-897a-5741-ac66-5398381a2d13
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		lineageTag: 062d827f-6128-54f5-8994-b00096c52a76
+		summarizeBy: none
+		sourceColumn: age_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 11128277-e9c4-5d09-aa3e-9a3f2202ab23
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column clean_city
+		dataType: string
+		lineageTag: b17fa28c-da36-52a1-b599-f47d83b07d8d
+		summarizeBy: none
+		sourceColumn: clean_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_tier
+		dataType: string
+		lineageTag: 512296f9-af94-5657-800c-0f64588c48c7
+		summarizeBy: none
+		sourceColumn: city_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8a6dc1df-3c5f-5e22-b026-a55b9528ab87
+		summarizeBy: none
+		sourceColumn: txn_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_txn_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 49340747-c3e7-586a-bb9a-adf550a6f15c
+		summarizeBy: none
+		sourceColumn: total_txn_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_txn_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5daa76a2-6f40-5f8c-8e12-9a346eb2a575
+		summarizeBy: none
+		sourceColumn: avg_txn_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_txn_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 745798d4-42cc-5235-81c0-4aaa7ec01c93
+		summarizeBy: none
+		sourceColumn: max_txn_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: a6674e9e-52c0-5925-bfd0-8d722f35622f
+		summarizeBy: none
+		sourceColumn: active_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_txn_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 4b768155-b0f1-569e-a679-687efc2b4d76
+		summarizeBy: none
+		sourceColumn: first_txn_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_txn_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 985e5429-1519-549c-9501-b8d77962dd6d
+		summarizeBy: none
+		sourceColumn: last_txn_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column monthly_txn_frequency
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 494beb09-52ee-5e28-9db2-6f7ca8299527
+		summarizeBy: none
+		sourceColumn: monthly_txn_frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column recency_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: bd41deb9-e5a3-5766-88f6-88bf9a20efd1
+		summarizeBy: none
+		sourceColumn: recency_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_balance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: d58369cf-fab1-5b0d-a605-0ccae1dfe429
+		summarizeBy: none
+		sourceColumn: avg_balance
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_balance
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 33e9e6e9-2482-549e-a985-2ba69794cc7e
+		summarizeBy: none
+		sourceColumn: latest_balance
+
+		annotation SummarizationSetBy = Automatic
+
+	column balance_volatility
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 820767c3-63e6-5d41-a4b6-33d692dc68cf
+		summarizeBy: none
+		sourceColumn: balance_volatility
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_to_balance_ratio
+		dataType: double
+		formatString: #,0.00
+		lineageTag: d25a361d-a6f7-5339-81df-569a9041c118
+		summarizeBy: none
+		sourceColumn: txn_to_balance_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column activity_trend
+		dataType: string
+		lineageTag: b3bf0575-87a2-5c7d-8664-33d2effd37e9
+		summarizeBy: none
+		sourceColumn: activity_trend
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_score
+		dataType: double
+		formatString: #,0.00
+		lineageTag: dd78d42a-5e87-51b1-93ee-dabcfaf8e8f7
+		summarizeBy: none
+		sourceColumn: value_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column engagement_score
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a19c03ff-c92f-5277-8ec8-45f73f08f11a
+		summarizeBy: none
+		sourceColumn: engagement_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column r_score
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0917ada2-3d2a-582e-9e1f-0deacc30e790
+		summarizeBy: none
+		sourceColumn: r_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column f_score
+		dataType: int64
+		formatString: #,0
+		lineageTag: 69cdcc5d-b43f-5c10-ab96-928f6e0a3de2
+		summarizeBy: none
+		sourceColumn: f_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column m_score
+		dataType: int64
+		formatString: #,0
+		lineageTag: c0412248-2b94-521d-844c-b232f8015c8b
+		summarizeBy: none
+		sourceColumn: m_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column rfm_code
+		dataType: string
+		lineageTag: 9e2c9c79-d3ee-532a-830d-d9d7a4a5a2d3
+		summarizeBy: none
+		sourceColumn: rfm_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column freq_band
+		dataType: string
+		lineageTag: f83679e2-d5c9-5714-8ece-d8967703c996
+		summarizeBy: none
+		sourceColumn: freq_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column evidence_level
+		dataType: string
+		lineageTag: 92c8a8b1-55b4-5fc2-a334-a4dfc5642886
+		summarizeBy: none
+		sourceColumn: evidence_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		lineageTag: 46fce5a8-0183-504d-89e0-8811207717be
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_high_value
+		dataType: boolean
+		lineageTag: 8500d563-bd22-5571-807d-1fb24ecf30f6
+		summarizeBy: none
+		sourceColumn: is_high_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_engagement
+		dataType: boolean
+		lineageTag: f5a4f7b4-cdcb-5b4a-b975-43b9c7f55c16
+		summarizeBy: none
+		sourceColumn: is_low_engagement
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_newly_observed
+		dataType: boolean
+		lineageTag: d562afbd-e3f4-5e99-948b-dcc44edca9cc
+		summarizeBy: none
+		sourceColumn: is_newly_observed
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_dormant
+		dataType: boolean
+		lineageTag: b2bfca9f-98dc-5316-9d48-ba36d8b69710
+		summarizeBy: none
+		sourceColumn: is_dormant
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_360 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "customer_360.csv"), [Delimiter = ",", Columns = 34, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"customer_id", type text}, {"location_key", Int64.Type}, {"age", Int64.Type}, {"age_group", type text}, {"gender", type text}, {"clean_city", type text}, {"city_tier", type text}, {"txn_count", Int64.Type}, {"total_txn_value", type number}, {"avg_txn_value", type number}, {"max_txn_value", type number}, {"active_days", Int64.Type}, {"first_txn_date", type date}, {"last_txn_date", type date}, {"monthly_txn_frequency", type number}, {"recency_days", Int64.Type}, {"avg_balance", type number}, {"latest_balance", type number}, {"balance_volatility", type number}, {"txn_to_balance_ratio", type number}, {"activity_trend", type text}, {"value_score", type number}, {"engagement_score", type number}, {"r_score", Int64.Type}, {"f_score", Int64.Type}, {"m_score", Int64.Type}, {"rfm_code", type text}, {"freq_band", type text}, {"evidence_level", type text}, {"is_active", type logical}, {"is_high_value", type logical}, {"is_low_engagement", type logical}, {"is_newly_observed", type logical}, {"is_dormant", type logical}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

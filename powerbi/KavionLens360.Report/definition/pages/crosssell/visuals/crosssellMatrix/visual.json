@@ -1,0 +1,148 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "crosssellMatrix",
+  "position": {
+    "x": 430,
+    "y": 202,
+    "z": 21,
+    "height": 240,
+    "width": 830,
+    "tabOrder": 21
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segment"
+                    }
+                  },
+                  "Property": "segment_name"
+                }
+              },
+              "queryRef": "customer_segment.segment_name",
+              "nativeQueryRef": "segment_name"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Investment Signals"
+                }
+              },
+              "queryRef": "customer_360.Investment Signals",
+              "nativeQueryRef": "Investment Signals"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Premium Signals"
+                }
+              },
+              "queryRef": "customer_360.Premium Signals",
+              "nativeQueryRef": "Premium Signals"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Credit Card Signals"
+                }
+              },
+              "queryRef": "customer_360.Credit Card Signals",
+              "nativeQueryRef": "Credit Card Signals"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Insurance Signals"
+                }
+              },
+              "queryRef": "customer_360.Insurance Signals",
+              "nativeQueryRef": "Insurance Signals"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Personal Loan Signals"
+                }
+              },
+              "queryRef": "customer_360.Personal Loan Signals",
+              "nativeQueryRef": "Personal Loan Signals"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Re-engagement Signals"
+                }
+              },
+              "queryRef": "customer_360.Re-engagement Signals",
+              "nativeQueryRef": "Re-engagement Signals"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Theme x segment matrix'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

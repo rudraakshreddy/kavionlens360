@@ -1,0 +1,162 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "dataqualityDq",
+  "position": {
+    "x": 20,
+    "y": 246,
+    "z": 13,
+    "height": 432,
+    "width": 1240,
+    "tabOrder": 13
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "check_id"
+                }
+              },
+              "queryRef": "dq_log.check_id",
+              "nativeQueryRef": "check_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "dimension"
+                }
+              },
+              "queryRef": "dq_log.dimension",
+              "nativeQueryRef": "dimension"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "rule"
+                }
+              },
+              "queryRef": "dq_log.rule",
+              "nativeQueryRef": "rule"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "pass_pct"
+                }
+              },
+              "queryRef": "dq_log.pass_pct",
+              "nativeQueryRef": "pass_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "threshold_pct"
+                }
+              },
+              "queryRef": "dq_log.threshold_pct",
+              "nativeQueryRef": "threshold_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "dq_log.status",
+              "nativeQueryRef": "status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dq_log"
+                    }
+                  },
+                  "Property": "note"
+                }
+              },
+              "queryRef": "dq_log.note",
+              "nativeQueryRef": "note"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dq_log"
+                  }
+                },
+                "Property": "check_id"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Data quality scorecard'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

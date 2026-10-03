@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "dataqualityWaterfall",
+  "position": {
+    "x": 640,
+    "y": 78,
+    "z": 12,
+    "height": 160,
+    "width": 620,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "row_waterfall"
+                    }
+                  },
+                  "Property": "step_no"
+                }
+              },
+              "queryRef": "row_waterfall.step_no",
+              "nativeQueryRef": "step_no"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "row_waterfall"
+                    }
+                  },
+                  "Property": "step"
+                }
+              },
+              "queryRef": "row_waterfall.step",
+              "nativeQueryRef": "step"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "row_waterfall"
+                    }
+                  },
+                  "Property": "rows"
+                }
+              },
+              "queryRef": "row_waterfall.rows",
+              "nativeQueryRef": "rows"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "row_waterfall"
+                  }
+                },
+                "Property": "step_no"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Row waterfall (raw -> clean)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

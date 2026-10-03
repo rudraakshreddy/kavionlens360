@@ -1,0 +1,30 @@
+relationship 60e7a17a-1407-5553-bdf6-4b7ce67d808b
+	fromColumn: customer_360.location_key
+	toColumn: dim_location.location_key
+
+relationship fb86fac0-c3a4-545f-bfa6-275f61d0d330
+	fromCardinality: one
+	toCardinality: one
+	crossFilteringBehavior: bothDirections
+	fromColumn: customer_segment.customer_id
+	toColumn: customer_360.customer_id
+
+relationship 4699b1e5-84cc-5af0-8685-4a6e8805aabd
+	fromCardinality: one
+	toCardinality: one
+	crossFilteringBehavior: bothDirections
+	fromColumn: customer_opportunity.customer_id
+	toColumn: customer_360.customer_id
+
+relationship e05eef3b-a24e-598a-b8a9-c90c77a44161
+	fromColumn: customer_segment.segment_id
+	toColumn: segment_definition.segment_id
+
+relationship d81dcd17-ff78-589a-9bc3-e9047a2fcec8
+	fromColumn: agg_daily_city.date_key
+	toColumn: dim_date.date_key
+
+relationship 6175c31c-3d45-56d0-b5a4-b2671e77a780
+	fromColumn: agg_daily_city.location_key
+	toColumn: dim_location.location_key
+

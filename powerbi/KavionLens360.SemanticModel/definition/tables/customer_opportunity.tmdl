@@ -1,0 +1,153 @@
+table customer_opportunity
+	lineageTag: 96086497-0563-598e-84f6-ad724b230b6f
+
+	column customer_id
+		dataType: string
+		lineageTag: 14a768eb-6fb9-5d2e-9fe2-1d8871d90ab4
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column masked_id
+		dataType: string
+		lineageTag: de8415ec-2fa1-557f-8045-20739e635332
+		summarizeBy: none
+		sourceColumn: masked_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_investment
+		dataType: boolean
+		lineageTag: f1432a70-d811-51f6-9fe6-00e202c8588e
+		summarizeBy: none
+		sourceColumn: sig_investment
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_premium
+		dataType: boolean
+		lineageTag: b593365e-f064-5077-ac6d-cc0b9946afea
+		summarizeBy: none
+		sourceColumn: sig_premium
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_credit_card
+		dataType: boolean
+		lineageTag: fe0649e8-473b-52f1-a6ed-e76e978c5575
+		summarizeBy: none
+		sourceColumn: sig_credit_card
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_insurance
+		dataType: boolean
+		lineageTag: 090c4b33-3c80-5ec3-be74-e130919cd34f
+		summarizeBy: none
+		sourceColumn: sig_insurance
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_personal_loan
+		dataType: boolean
+		lineageTag: f4462352-8b6c-5530-a37c-9a6ca742b0a4
+		summarizeBy: none
+		sourceColumn: sig_personal_loan
+
+		annotation SummarizationSetBy = Automatic
+
+	column sig_reengagement
+		dataType: boolean
+		lineageTag: 1d73bb7d-53f3-59ca-9e97-7b5fc2e6f6a5
+		summarizeBy: none
+		sourceColumn: sig_reengagement
+
+		annotation SummarizationSetBy = Automatic
+
+	column signal_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 41071252-0a99-587c-9362-cc25fef0ad21
+		summarizeBy: none
+		sourceColumn: signal_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column any_signal
+		dataType: boolean
+		lineageTag: 9350ee10-a91c-5e29-93e1-f131e82169ee
+		summarizeBy: none
+		sourceColumn: any_signal
+
+		annotation SummarizationSetBy = Automatic
+
+	column overall_score
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 89a19049-97c5-545c-9cc2-74f37a376b22
+		summarizeBy: none
+		sourceColumn: overall_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column driving_theme
+		dataType: string
+		lineageTag: 08ee8687-735c-5cca-b87c-28031bb6f48c
+		summarizeBy: none
+		sourceColumn: driving_theme
+
+		annotation SummarizationSetBy = Automatic
+
+	column driving_theme_label
+		dataType: string
+		lineageTag: 42df2ea5-38dd-5458-92b7-eb744765b8d0
+		summarizeBy: none
+		sourceColumn: driving_theme_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority_rank
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3d832064-5d7f-53fa-88f8-fe0daa7d2bc4
+		summarizeBy: none
+		sourceColumn: priority_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier
+		dataType: string
+		lineageTag: b11bff70-6fef-5c63-a4e7-53ccddaa6321
+		summarizeBy: none
+		sourceColumn: tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: 1afaa998-22ce-5cca-88d9-26b24d84412e
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column score_band = FLOOR(customer_opportunity[overall_score], 5)
+		dataType: int64
+		formatString: 0
+		lineageTag: fd3adcbe-9438-57d1-8107-1f03c9a0bebb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition customer_opportunity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "customer_opportunity.csv"), [Delimiter = ",", Columns = 16, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"customer_id", type text}, {"masked_id", type text}, {"sig_investment", type logical}, {"sig_premium", type logical}, {"sig_credit_card", type logical}, {"sig_insurance", type logical}, {"sig_personal_loan", type logical}, {"sig_reengagement", type logical}, {"signal_count", Int64.Type}, {"any_signal", type logical}, {"overall_score", type number}, {"driving_theme", type text}, {"driving_theme_label", type text}, {"priority_rank", Int64.Type}, {"tier", type text}, {"reason", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

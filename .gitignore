@@ -21,3 +21,6 @@ powerbi/**/.pbi/cache.abf
 
 # Office lock files
 ~$*
+
+# Power BI Desktop working files
+powerbi/**/.pbi/

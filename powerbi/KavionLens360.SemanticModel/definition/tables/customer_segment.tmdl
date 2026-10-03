@@ -1,0 +1,75 @@
+table customer_segment
+	lineageTag: 9075eb2e-96c3-51e5-a2da-d41019f32557
+
+	column customer_id
+		dataType: string
+		lineageTag: 612d4619-061c-54b7-8059-e5d7310a6f95
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_id
+		dataType: int64
+		formatString: #,0
+		lineageTag: dcd14a04-4f93-51fe-8f14-2f4478b7ed07
+		summarizeBy: none
+		sourceColumn: segment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_name
+		dataType: string
+		lineageTag: e9dc6ff6-0130-506a-b551-165356f7ccf4
+		summarizeBy: none
+		sourceColumn: segment_name
+		sortByColumn: segment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column layer
+		dataType: string
+		lineageTag: c5d6328f-4902-5ff9-a199-8a4bf3986c7d
+		summarizeBy: none
+		sourceColumn: layer
+
+		annotation SummarizationSetBy = Automatic
+
+	column cluster_key
+		dataType: string
+		isHidden
+		lineageTag: c4cd454c-7d0f-5214-825a-f14c70e0be49
+		summarizeBy: none
+		sourceColumn: cluster_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column method
+		dataType: string
+		isHidden
+		lineageTag: 2c4f0214-493d-5516-acba-8a65913ed454
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_id
+		dataType: string
+		isHidden
+		lineageTag: aeee6a73-6f74-53c5-84da-8c81019ed553
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_segment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "customer_segment.csv"), [Delimiter = ",", Columns = 7, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"customer_id", type text}, {"segment_id", Int64.Type}, {"segment_name", type text}, {"layer", type text}, {"cluster_key", type text}, {"method", type text}, {"run_id", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

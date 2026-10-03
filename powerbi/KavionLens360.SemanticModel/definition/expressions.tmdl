@@ -1,0 +1,5 @@
+expression DataFolder = "C:\\Users\\chakr\\Documents\\rudr\\data\\exports\\powerbi\\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 37287f22-7365-58f6-a0a9-f35368baecae
+
+	annotation PBI_ResultType = Text
+

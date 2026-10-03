@@ -1,0 +1,102 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "segmentationActions",
+  "position": {
+    "x": 850,
+    "y": 436,
+    "z": 24,
+    "height": 242,
+    "width": 410,
+    "tabOrder": 24
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "segment_definition"
+                    }
+                  },
+                  "Property": "segment_name"
+                }
+              },
+              "queryRef": "segment_definition.segment_name",
+              "nativeQueryRef": "segment_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "segment_definition"
+                    }
+                  },
+                  "Property": "action"
+                }
+              },
+              "queryRef": "segment_definition.action",
+              "nativeQueryRef": "action"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "segment_definition"
+                    }
+                  },
+                  "Property": "owner"
+                }
+              },
+              "queryRef": "segment_definition.owner",
+              "nativeQueryRef": "owner"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "segment_definition"
+                    }
+                  },
+                  "Property": "timing"
+                }
+              },
+              "queryRef": "segment_definition.timing",
+              "nativeQueryRef": "timing"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segment actions'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

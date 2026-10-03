@@ -1,0 +1,49 @@
+table dim_location
+	lineageTag: cfc96853-5dac-5166-8607-ede12e7e6eb4
+
+	column location_key
+		dataType: int64
+		formatString: #,0
+		isHidden
+		lineageTag: e1bf8862-7d47-5b52-af8b-428b7d2aba07
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column clean_city
+		dataType: string
+		lineageTag: cc860db0-1c9f-5272-8bd0-10cc01c9456c
+		summarizeBy: none
+		sourceColumn: clean_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column raw_variants_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: f00328c6-6a1f-5bc6-83bb-893cdc178ee5
+		summarizeBy: none
+		sourceColumn: raw_variants_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_tier
+		dataType: string
+		lineageTag: de75066a-b49d-5dfc-b8cf-3a6c3ce32662
+		summarizeBy: none
+		sourceColumn: city_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_location = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_location.csv"), [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"location_key", Int64.Type}, {"clean_city", type text}, {"raw_variants_count", Int64.Type}, {"city_tier", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

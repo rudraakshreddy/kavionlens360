@@ -1,0 +1,162 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "segmentationProfile",
+  "position": {
+    "x": 550,
+    "y": 178,
+    "z": 21,
+    "height": 250,
+    "width": 710,
+    "tabOrder": 21
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segment"
+                    }
+                  },
+                  "Property": "segment_name"
+                }
+              },
+              "queryRef": "customer_segment.segment_name",
+              "nativeQueryRef": "segment_name"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Total Customers"
+                }
+              },
+              "queryRef": "customer_360.Total Customers",
+              "nativeQueryRef": "Total Customers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Avg Txn Value"
+                }
+              },
+              "queryRef": "customer_360.Avg Txn Value",
+              "nativeQueryRef": "Avg Txn Value"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Median Balance"
+                }
+              },
+              "queryRef": "customer_360.Median Balance",
+              "nativeQueryRef": "Median Balance"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Txn Frequency"
+                }
+              },
+              "queryRef": "customer_360.Txn Frequency",
+              "nativeQueryRef": "Txn Frequency"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Avg Recency Days"
+                }
+              },
+              "queryRef": "customer_360.Avg Recency Days",
+              "nativeQueryRef": "Avg Recency Days"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Active Rate"
+                }
+              },
+              "queryRef": "customer_360.Active Rate",
+              "nativeQueryRef": "Active Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "High Value Share"
+                }
+              },
+              "queryRef": "customer_360.High Value Share",
+              "nativeQueryRef": "High Value Share"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segment profile'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

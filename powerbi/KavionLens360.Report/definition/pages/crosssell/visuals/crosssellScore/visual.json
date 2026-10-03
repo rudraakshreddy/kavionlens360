@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "crosssellScore",
+  "position": {
+    "x": 330,
+    "y": 450,
+    "z": 23,
+    "height": 228,
+    "width": 450,
+    "tabOrder": 23
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "score_band"
+                }
+              },
+              "queryRef": "customer_opportunity.score_band",
+              "nativeQueryRef": "score_band",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "tier"
+                }
+              },
+              "queryRef": "customer_opportunity.tier",
+              "nativeQueryRef": "tier"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "Total Customers"
+                }
+              },
+              "queryRef": "customer_360.Total Customers",
+              "nativeQueryRef": "Total Customers"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Opportunity score distribution'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

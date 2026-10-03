@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "manager",
+  "displayName": "4 · Manager Action",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter4f2a6c1e9b3d7a5c8e0f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_location"
+              }
+            },
+            "Property": "clean_city"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "d2aac5b3-03d8-55e4-9ee6-1d83941d8b7d",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "Param_Filter4f2a6c1e9b3d7a5c8e0f",
+        "boundFilter": "Filter4f2a6c1e9b3d7a5c8e0f",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_location"
+              }
+            },
+            "Property": "clean_city"
+          }
+        }
+      }
+    ]
+  }
+}

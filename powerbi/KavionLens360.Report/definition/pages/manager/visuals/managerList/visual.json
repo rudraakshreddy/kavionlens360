@@ -1,0 +1,190 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "managerList",
+  "position": {
+    "x": 20,
+    "y": 158,
+    "z": 30,
+    "height": 520,
+    "width": 830,
+    "tabOrder": 30
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "priority_rank"
+                }
+              },
+              "queryRef": "customer_opportunity.priority_rank",
+              "nativeQueryRef": "priority_rank"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "masked_id"
+                }
+              },
+              "queryRef": "customer_opportunity.masked_id",
+              "nativeQueryRef": "masked_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "tier"
+                }
+              },
+              "queryRef": "customer_opportunity.tier",
+              "nativeQueryRef": "tier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "overall_score"
+                }
+              },
+              "queryRef": "customer_opportunity.overall_score",
+              "nativeQueryRef": "overall_score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "reason"
+                }
+              },
+              "queryRef": "customer_opportunity.reason",
+              "nativeQueryRef": "reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_opportunity"
+                    }
+                  },
+                  "Property": "driving_theme_label"
+                }
+              },
+              "queryRef": "customer_opportunity.driving_theme_label",
+              "nativeQueryRef": "driving_theme_label"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_location"
+                    }
+                  },
+                  "Property": "clean_city"
+                }
+              },
+              "queryRef": "dim_location.clean_city",
+              "nativeQueryRef": "clean_city"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segment"
+                    }
+                  },
+                  "Property": "segment_name"
+                }
+              },
+              "queryRef": "customer_segment.segment_name",
+              "nativeQueryRef": "segment_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_360"
+                    }
+                  },
+                  "Property": "evidence_level"
+                }
+              },
+              "queryRef": "customer_360.evidence_level",
+              "nativeQueryRef": "evidence_level"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_opportunity"
+                  }
+                },
+                "Property": "priority_rank"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Who and why: priority customers (masked IDs, ranked)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

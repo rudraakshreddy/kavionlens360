@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DataFolder", "customer_360", "customer_segment", "customer_opportunity", "segment_definition", "dim_location", "dim_date", "agg_daily_city", "agg_hour_weekday", "dq_log", "row_waterfall", "kpi_reconciliation"]
+
+ref table customer_360
+ref table customer_segment
+ref table customer_opportunity
+ref table segment_definition
+ref table dim_location
+ref table dim_date
+ref table agg_daily_city
+ref table agg_hour_weekday
+ref table dq_log
+ref table row_waterfall
+ref table kpi_reconciliation
+
+ref cultureInfo en-US
+

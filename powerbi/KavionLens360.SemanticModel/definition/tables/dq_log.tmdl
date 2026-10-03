@@ -1,0 +1,90 @@
+table dq_log
+	lineageTag: e2fe33d7-5ab1-5845-a448-88fa25c1185b
+
+	column check_id
+		dataType: string
+		lineageTag: 8b822603-e94d-529c-96e2-5e6e639e83ca
+		summarizeBy: none
+		sourceColumn: check_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column dimension
+		dataType: string
+		lineageTag: 52c0e848-8b07-543a-95c0-2e460709a0ed
+		summarizeBy: none
+		sourceColumn: dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column rule
+		dataType: string
+		lineageTag: 4ae90a75-6013-518d-a655-760a44c7939e
+		summarizeBy: none
+		sourceColumn: rule
+
+		annotation SummarizationSetBy = Automatic
+
+	column checked_rows
+		dataType: int64
+		formatString: #,0
+		lineageTag: d4d647cd-aedc-5b5a-a3c1-0167405ebf2c
+		summarizeBy: sum
+		sourceColumn: checked_rows
+
+		annotation SummarizationSetBy = Automatic
+
+	column failed_rows
+		dataType: int64
+		formatString: #,0
+		lineageTag: fae2afdd-2e07-5504-8fb4-4a22b890dca3
+		summarizeBy: sum
+		sourceColumn: failed_rows
+
+		annotation SummarizationSetBy = Automatic
+
+	column pass_pct
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e0aa3dff-119a-5d08-8f07-0c58645f2aab
+		summarizeBy: none
+		sourceColumn: pass_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column threshold_pct
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 6c98cdc4-fd6c-5428-8d69-8b72bcecf7a9
+		summarizeBy: none
+		sourceColumn: threshold_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 7c1e692c-0f75-5961-8f0e-9d48f9c0cca2
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column note
+		dataType: string
+		lineageTag: 6b3c09c3-54f8-52c7-85c7-42c2e6d3ce4a
+		summarizeBy: none
+		sourceColumn: note
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dq_log = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dq_log.csv"), [Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"check_id", type text}, {"dimension", type text}, {"rule", type text}, {"checked_rows", Int64.Type}, {"failed_rows", Int64.Type}, {"pass_pct", type number}, {"threshold_pct", type number}, {"status", type text}, {"note", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

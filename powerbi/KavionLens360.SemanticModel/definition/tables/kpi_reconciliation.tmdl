@@ -1,0 +1,47 @@
+table kpi_reconciliation
+	lineageTag: d73341f2-5875-5780-be1a-d204655e4196
+
+	measure 'SQL Total Customers' = CALCULATE(SUM(kpi_reconciliation[sql_value]), kpi_reconciliation[kpi] = "Total Customers")
+		formatString: #,0
+		lineageTag: eba716d6-2b70-5f0f-a441-650d537e9832
+
+	measure 'Reconciliation Variance (Customers)' = CALCULATE([Total Customers], ALL(customer_360)) - [SQL Total Customers]
+		formatString: #,0
+		lineageTag: 9bcdcd0d-dc45-5e98-b71f-dc08afccdb7c
+
+	measure 'SQL Total Txn Value' = CALCULATE(SUM(kpi_reconciliation[sql_value]), kpi_reconciliation[kpi] = "Total Txn Value")
+		formatString: #,0
+		lineageTag: 28e3baf5-056a-54f9-b247-c3df98482018
+
+	measure 'Reconciliation Variance (Value)' = ROUND(CALCULATE([Total Txn Value], ALL(customer_360)) - [SQL Total Txn Value], 2)
+		formatString: #,0.00
+		lineageTag: e545ee28-ae8f-5bd7-96ca-b1b0d4b5c4c5
+
+	column kpi
+		dataType: string
+		lineageTag: 34cf30a5-bc85-5194-9ccb-9042049a374d
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column sql_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 82538f45-e1cd-5f7d-b30e-fe3c48f88c6c
+		summarizeBy: none
+		sourceColumn: sql_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition kpi_reconciliation = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "kpi_reconciliation.csv"), [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"kpi", type text}, {"sql_value", type number}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

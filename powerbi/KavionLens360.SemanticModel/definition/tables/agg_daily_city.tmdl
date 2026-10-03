@@ -1,0 +1,78 @@
+table agg_daily_city
+	lineageTag: 46cf7d73-dee1-5cd3-beb0-c4797b3ca9ca
+
+	measure 'Daily Txns' = SUM(agg_daily_city[txns])
+		formatString: #,0
+		lineageTag: e4cc16c1-a7c5-51c4-9cc8-6f39a726147d
+
+	measure 'Daily Value' = SUM(agg_daily_city[total_value])
+		formatString: #,0
+		lineageTag: dcd13bc1-8e01-547d-809a-b430b70d3747
+
+	column date_key
+		dataType: int64
+		formatString: #,0
+		isHidden
+		lineageTag: 771fc4b3-43d6-559c-89f3-9bfa85295b5d
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: #,0
+		isHidden
+		lineageTag: cd52aab8-1e0a-568c-b404-d0541b0c8696
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column txns
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9d0c0594-b412-50ae-b560-9a2b516d29ee
+		summarizeBy: sum
+		sourceColumn: txns
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: b8440ef2-fe2a-5f5e-aad7-34227debc751
+		summarizeBy: sum
+		sourceColumn: total_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column high_value_txns
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3309104c-16e7-58ae-b9eb-78845dcfd423
+		summarizeBy: sum
+		sourceColumn: high_value_txns
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1dea13a4-0636-5032-9c60-3599ccc573ac
+		summarizeBy: sum
+		sourceColumn: customers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition agg_daily_city = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "agg_daily_city.csv"), [Delimiter = ",", Columns = 6, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"date_key", Int64.Type}, {"location_key", Int64.Type}, {"txns", Int64.Type}, {"total_value", type number}, {"high_value_txns", Int64.Type}, {"customers", Int64.Type}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
