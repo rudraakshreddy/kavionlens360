@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KavionLens360 Report</title>
+<meta name="description" content="Bank Customer 360 and segmentation analytics on 1M public bank transactions: findings, segments, cross-sell signals.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='%232a78d6' stroke-width='4'/%3E%3Cpath d='M21 21l7 7' stroke='%232a78d6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/theme.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+<a class="brand" href="index.html"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="14" r="9" fill="none" stroke="var(--accent)" stroke-width="4"/><path d="M21 21l7 7" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/></svg>KavionLens360</a>
+<nav class="nav" aria-label="Site"><a href="index.html" aria-current="page">Report</a><a href="dashboard.html">Dashboard</a><a href="index.html#downloads" class="hide-sm">Downloads</a><a href="https://github.com/rudraakshreddy/kavionlens360">GitHub</a></nav>
+<button class="theme-btn" id="theme-btn" type="button" aria-label="Toggle theme">☾</button>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div class="eyebrow">Bank Customer 360 &amp; Segmentation Analytics</div>
+  <h1>Who to focus on, why, and with what conversation</h1>
+  <p class="lede">KavionLens360 turns 1,048,567 bank transactions into one analytical view per customer, groups
+  841,543 customers into five behaviour segments, and ranks them by transparent cross-sell
+  <em>signals</em> so a relationship manager knows whom to call first.</p>
+  <p class="disclaimer">Public Kaggle data from an Indian bank (2016), not ICICI Bank data. Analysis window
+  01 Aug – 15 Sep 2016, as of 16 Sep 2016. Every number on this page is generated from the pipeline.</p>
+  <div class="tiles">
+    <div class="tile"><div class="label">Customers</div><div class="value">8.42 L</div><div class="sub">841,543 CustomerIDs</div></div>
+    <div class="tile"><div class="label">Transactions analysed</div><div class="value">9.89 L</div><div class="sub">₹155 Cr moved</div></div>
+    <div class="tile"><div class="label">Value from top 10%</div><div class="value">63%</div><div class="sub">Gini 0.74</div></div>
+    <div class="tile"><div class="label">Behaviour segments</div><div class="value">5</div><div class="sub">silhouette 0.28 · ARI ≥ 0.93</div></div>
+    <div class="tile"><div class="label">Tier A priority customers</div><div class="value">42.1K</div><div class="sub">₹1,721 Cr addressable balance</div></div>
+  </div>
+  <ul class="toc">
+    <li><a href="#problem">Problem</a></li><li><a href="#data">Data &amp; quality</a></li><li><a href="#insights">Customer insights</a></li>
+    <li><a href="#segments">Segments</a></li><li><a href="#opportunity">Opportunity</a></li><li><a href="#actions">Actions</a></li>
+    <li><a href="#limits">Limitations</a></li><li><a href="#downloads">Downloads</a></li><li><a href="dashboard.html">Open dashboard →</a></li>
+  </ul>
+</div>
+
+<section class="block" id="problem"><div class="wrap cols">
+  <div>
+    <h2>1. The problem</h2>
+    <p>Banks store activity as transactions, but managers think in customers. With limited relationship-manager time,
+    a raw transaction log cannot say <strong>who to focus on, why, with what offer, where they are, and how large the opportunity is</strong>.</p>
+    <p>This project builds a small analytical version of a Customer 360: a reconciled customer table, behaviour segments with a
+    named action each, and a ranked opportunity list, delivered through SQL, Python, Power BI, an Excel MIS and an executive deck.</p>
+  </div>
+  <div class="callout">
+    <strong>Value chain:</strong> data → analysis → insight → business action.<br><br>
+    <ol class="steps">
+      <li>PostgreSQL 16: staging, 17 cleaning rules, star model, <code>customer_360</code></li>
+      <li>Python: profiling, EDA, statistics, K-Means segmentation, opportunity scoring</li>
+      <li>Power BI (5 pages), Excel MIS (7 sheets), deck (8 slides), this site</li>
+      <li>Reconciliation: SQL = Python = Excel = Power BI, variance 0</li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="block" id="data"><div class="wrap">
+  <h2>2. Data, profiling and quality</h2>
+  <div class="cols">
+    <div>
+      <p>Profiling the 1,048,567-row file confirmed every published count, and found two issues the dataset page does not mention:</p>
+      <div class="finding"><h3>Coverage ends on 15 September</h3>
+      <p>Every day from 1 Aug to 15 Sep has roughly 17–27K transactions; after that the file holds only a few scattered days.
+      Because recency and “active” rules need complete coverage, the analysis window was fixed to 46 days and the sparse tail
+      (58,826 rows) was logged, not silently dropped.</p></div>
+      <div class="finding" style="margin-top:12px"><h3>CustomerID is not a stable person key</h3>
+      <p>Only 0.9% of repeat CustomerIDs keep the same birth date, gender and city across their rows.
+      The ID is kept as the key (as specified), conflicts are resolved by the most-frequent-then-latest rule, and repeat-customer
+      features are interpreted with care.</p></div>
+    </div>
+    <div>
+      <div class="table-wrap"><table><thead><tr><th>Row waterfall</th><th class="num">Rows</th></tr></thead><tbody><tr><td>Raw rows in staging</td><td class='num'>1,048,567</td></tr><tr><td>Rejected: PARTIAL_COVERAGE_PERIOD</td><td class='num'>-58,826</td></tr><tr><td>Rejected: ZERO_AMOUNT</td><td class='num'>-794</td></tr><tr><td>Clean rows</td><td class='num'>988,947</td></tr></tbody></table></div>
+      <p style="margin-top:12px">Quality scorecard: <span class="badge pass">17 pass</span>
+      <span class="badge exception">1 documented exception</span>
+      <span class="badge info">6 findings</span>. The one exception is usable birth dates (94%), because of the
+      <code>1/1/1800</code> placeholder. 9,355 raw location spellings were standardised into 8,773 cities.</p>
+    </div>
+  </div>
+  <figure><img src="figures/P0_daily_coverage.png" alt="Transactions per day in the raw file. Complete daily coverage ends on 15 Sep 2016." loading="lazy"><figcaption>Transactions per day in the raw file. Complete daily coverage ends on 15 Sep 2016.</figcaption></figure>
+</div></section>
+
+<section class="block" id="insights"><div class="wrap">
+  <h2>3. Customer 360 insights</h2>
+  <div class="cols">
+    <div class="finding"><h3>Value is extremely concentrated</h3><p>The top 1% of customers generate 27% of transaction value,
+    the top 10% generate 63% and hold 77% of balances (Gini 0.74).</p></div>
+    <div class="finding"><h3>Most customers appear once</h3><p>84.6% of customers made a single transaction in the window, so
+    frequency is weak evidence for most of the base. Every list carries an evidence level.</p></div>
+    <div class="finding"><h3>Metros carry the book</h3><p>Mumbai, New Delhi, Bangalore, Gurgaon, Delhi hold 42% of value.
+    Weekend days run 22% above weekdays, and 63% of activity falls between 12:00 and 21:00.</p></div>
+  </div>
+  <div class="cols" style="margin-top:20px">
+    <figure><img src="figures/P9_lorenz.png" alt="Cumulative share of transaction value by customers ranked by value." loading="lazy"><figcaption>Cumulative share of transaction value by customers ranked by value.</figcaption></figure>
+    <figure><img src="figures/P2_balance_distribution.png" alt="Latest balance per customer, log scale." loading="lazy"><figcaption>Latest balance per customer, log scale.</figcaption></figure>
+  </div>
+  <div class="cols">
+    <figure><img src="figures/P6_top_cities.png" alt="Top 15 cities by transaction value." loading="lazy"><figcaption>Top 15 cities by transaction value.</figcaption></figure>
+    <figure><img src="figures/P8_hour_weekday.png" alt="Average transactions per hour, by weekday." loading="lazy"><figcaption>Average transactions per hour, by weekday.</figcaption></figure>
+  </div>
+  <h3>Statistics, with effect sizes</h3>
+  <p>With 840K customers every test is “significant”, so each reports an effect size. The result is consistent:
+  <strong>behaviour, not demographics, explains value</strong>. Gender barely moves ticket size (rank-biserial r = 0.08),
+  age explains little of balance (ε² = 0.06), metro status barely changes the high-value share (Cramér's V = 0.05),
+  while balance and transaction value are only moderately linked (Spearman ρ = 0.30).</p>
+  <div class="table-wrap"><table><thead><tr><th>Test</th><th>Question</th><th>Effect size</th><th>Detail</th></tr></thead><tbody><tr><td>Mann-Whitney U</td><td>Avg ticket differs between men and women</td><td>rank-biserial r = 0.079</td><td>median M Rs 473 vs F Rs 560</td></tr><tr><td>Kruskal-Wallis</td><td>Avg balance differs across age groups</td><td>epsilon² = 0.062</td><td>medians: 18-24 Rs 9,741, 25-34 Rs 17,614, 35-44 Rs 31,889, 45-54 Rs 44,941, 55-64 Rs 52,414, 65+ Rs 54,368</td></tr><tr><td>Spearman</td><td>Balance is associated with transaction value</td><td>rho = 0.296</td><td></td></tr><tr><td>Chi-square</td><td>High-value share differs by city tier</td><td>Cramer&#x27;s V = 0.052</td><td>high-value %: Metro satellite 18.8%, Other 15.5%, Tier 1 metro 19.8%</td></tr></tbody></table></div>
+</div></section>
+
+<section class="block" id="segments"><div class="wrap">
+  <h2>4. Five behaviour segments</h2>
+  <p>K-Means on five behaviour features (log balance, log value, log ticket, capped frequency, recency), with k chosen from 3–10
+  by elbow, silhouette, Calinski-Harabasz and five-seed stability. k = 5: silhouette 0.279, ARI ≥ 0.93,
+  smallest segment 9.5%. Gender and city were excluded from the inputs and only used to profile.</p>
+  <div class="table-wrap"><table><thead><tr><th>Segment</th><th class="num">Customers</th><th class="num">Value</th><th class="num">Median balance</th><th class="num">Txns / customer</th><th class="num">Active</th><th>Action</th></tr></thead><tbody><tr><td><i class='swatch' style='background:var(--s1)'></i>Engaged Repeat Users</td><td class='num'>15.0%</td><td class='num'>28.1%</td><td class='num'>₹29,937</td><td class='num'>2.14</td><td class='num'>59%</td><td>Deepen the relationship: RM introduction call, needs review, bundle offer</td></tr><tr><td><i class='swatch' style='background:var(--s2)'></i>Recent One-Time Spenders</td><td class='num'>24.1%</td><td class='num'>33.2%</td><td class='num'>₹29,017</td><td class='num'>1.00</td><td class='num'>73%</td><td>Convert to repeat use: welcome-back nudge and digital activation while the visit is recent</td></tr><tr><td><i class='swatch' style='background:var(--s3)'></i>Lapsed One-Time Spenders</td><td class='num'>25.5%</td><td class='num'>34.3%</td><td class='num'>₹28,730</td><td class='num'>1.00</td><td class='num'>0%</td><td>Win-back: service call or message to understand needs; offer relevant product review</td></tr><tr><td><i class='swatch' style='background:var(--s4)'></i>Low-Ticket Occasional</td><td class='num'>25.8%</td><td class='num'>1.6%</td><td class='num'>₹12,443</td><td class='num'>1.01</td><td class='num'>33%</td><td>Low-cost digital nurture only; no RM time</td></tr><tr><td><i class='swatch' style='background:var(--s5)'></i>Near-Zero Balance</td><td class='num'>9.5%</td><td class='num'>2.7%</td><td class='num'>₹86</td><td class='num'>1.01</td><td class='num'>29%</td><td>Service check and activation; exclude from cross-sell lists</td></tr></tbody></table></div>
+  <div class="cols" style="margin-top:20px">
+    <figure><img src="figures/P15_segment_size_value.png" alt="Share of customers vs share of transaction value by segment." loading="lazy"><figcaption>Share of customers vs share of transaction value by segment.</figcaption></figure>
+    <figure><img src="figures/P13_segment_profile.png" alt="What defines each segment: mean standardised feature values." loading="lazy"><figcaption>What defines each segment: mean standardised feature values.</figcaption></figure>
+  </div>
+  <p><strong>Reading:</strong> Engaged Repeat Users are 15% of customers but 28% of value.
+  The two one-time spender segments look alike in value and differ only in recency; together they hold 68% of value.
+  The two low-value segments (35% of customers) contribute 4.4% of value and belong in low-cost digital channels.</p>
+</div></section>
+
+<section class="block" id="opportunity"><div class="wrap">
+  <h2>5. Cross-sell opportunity signals</h2>
+  <p class="callout"><strong>Signals inferred from behaviour; product ownership is unknown.</strong> Six transparent rules use percentile
+  thresholds. Each customer gets a score: 100 × (0.35 value + 0.25 engagement + 0.30 rule fit + 0.10 recency), and tiers
+  A (top 5%), B (next 15%), C (next 30%) and Watch. These rank conversations; they are not eligibility or credit decisions.</p>
+  <div class="cols">
+    <div class="table-wrap"><table><thead><tr><th>Tier</th><th class="num">Customers</th><th class="num">Share</th><th class="num">Min score</th><th class="num">Addressable balance</th></tr></thead><tbody><tr><td><span class='tierchip A'>A</span></td><td class='num'>42,077</td><td class='num'>5%</td><td class='num'>82.0</td><td class='num'>₹1,721 Cr</td></tr><tr><td><span class='tierchip B'>B</span></td><td class='num'>126,231</td><td class='num'>15%</td><td class='num'>72.2</td><td class='num'>₹3,718 Cr</td></tr><tr><td><span class='tierchip C'>C</span></td><td class='num'>252,463</td><td class='num'>30%</td><td class='num'>50.7</td><td class='num'>₹3,513 Cr</td></tr><tr><td><span class='tierchip Watch'>Watch</span></td><td class='num'>420,772</td><td class='num'>50%</td><td class='num'>4.4</td><td class='num'>₹42.8 Cr</td></tr></tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>Signal</th><th class="num">Customers</th><th class="num">% of base</th></tr></thead><tbody><tr><td>Investment / MF</td><td class='num'>126,981</td><td class='num'>15.1%</td></tr><tr><td>Premium account</td><td class='num'>83,991</td><td class='num'>10.0%</td></tr><tr><td>Credit card</td><td class='num'>215,414</td><td class='num'>25.6%</td></tr><tr><td>Insurance</td><td class='num'>199,478</td><td class='num'>23.7%</td></tr><tr><td>Personal loan (demand only)</td><td class='num'>51,725</td><td class='num'>6.1%</td></tr><tr><td>Re-engagement (service)</td><td class='num'>87,724</td><td class='num'>10.4%</td></tr></tbody></table></div>
+  </div>
+  <div class="cols" style="margin-top:20px">
+    <figure><img src="figures/P16_theme_by_segment.png" alt="Share of each segment carrying each signal." loading="lazy"><figcaption>Share of each segment carrying each signal.</figcaption></figure>
+    <figure><img src="figures/P17_score_distribution.png" alt="Overall opportunity score by tier." loading="lazy"><figcaption>Overall opportunity score by tier.</figcaption></figure>
+  </div>
+  <p><strong>Robustness:</strong> moving any weight by ±10 points keeps 84–100% of the top 1,000 customers
+  (rank correlation ≥ 0.99), so the judgement-based weights do not drive the list.
+  <strong>Caveat:</strong> 48% of customers carry at least one signal, which is broad;
+  the credit-card and insurance rules are the first to tighten once response data exists.</p>
+</div></section>
+
+<section class="block" id="actions"><div class="wrap">
+  <h2>6. From insight to action</h2>
+  <div class="table-wrap"><table><thead><tr><th>Output</th><th>What we found</th><th>Why it matters</th><th>What a manager should do</th></tr></thead><tbody>
+    <tr><td>Value concentration</td><td>Top 10% → 63% of value; top 1% → 27%</td><td>Effort pays off unevenly</td><td>Named RM coverage for the top decile</td></tr>
+    <tr><td>Segment profiles</td><td>Engaged Repeat Users: 15% of customers, 28% of value</td><td>Different needs per segment</td><td>Deepen this group first: needs review, cards and investments</td></tr>
+    <tr><td>Lapsed one-time spenders</td><td>26% of customers, 34% of value, not seen for 2+ weeks</td><td>Valuable but going quiet</td><td>Re-engagement call before any sale</td></tr>
+    <tr><td>Low-value tail</td><td>35% of customers, 4.4% of value</td><td>RM time has little return</td><td>Digital nurture only; activation checks for near-zero balances</td></tr>
+    <tr><td>Opportunity tiers</td><td>Tier A: 42,077 customers, ₹1,721 Cr</td><td>Limited RM time</td><td>Work Tier A first, review weekly, measure response</td></tr>
+    <tr><td>Geography</td><td>Top 5 cities hold 42% of value</td><td>Effort allocation</td><td>Staff metro hubs; use the city scorecard for high value-per-customer smaller cities</td></tr>
+  </tbody></table></div>
+  <p style="margin-top:16px"><a href="dashboard.html#manager">Open the Manager Action view →</a> who, why, what, where and how large, on one screen.</p>
+</div></section>
+
+<section class="block" id="limits"><div class="wrap cols">
+  <div>
+    <h2>7. Limitations and responsible use</h2>
+    <ul>
+      <li>Public data from one bank in 2016 and a 46-day window: no seasonality, trend or tenure claims.</li>
+      <li>No product holdings, revenue or campaign outcomes: opportunity is a signal, value is a proxy (balance and activity).</li>
+      <li>CustomerID is not a stable person key in this extract; repeat behaviour is weak evidence.</li>
+      <li>Clusters describe behaviour; they do not predict it.</li>
+      <li>Age is used only as a life-stage hint; gender and city are never model inputs. Flags start conversations; they never decide eligibility.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Version 2</h2>
+    <ul>
+      <li>Add product holdings and campaign response to build propensity models and measure lift.</li>
+      <li>Longer time window and entity resolution for a reliable customer key.</li>
+      <li>Segment-drift monitoring and fairness checks on every refresh.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="block" id="downloads"><div class="wrap">
+  <h2>8. Deliverables</h2>
+  <div class="downloads"><a class="dl pending" href="downloads/KavionLens360_Report.pdf"><span class="kind">PDF</span><span><span class="t">Analytical report</span><br><span class="d">This page as a printable PDF (coming soon)</span></span></a><a class="dl pending" href="downloads/KavionLens360_Executive_Deck.pdf"><span class="kind">PDF</span><span><span class="t">Executive deck</span><br><span class="d">8-slide management presentation (coming soon)</span></span></a><a class="dl pending" href="downloads/KavionLens360_Executive_Deck.pptx"><span class="kind">PPTX</span><span><span class="t">Executive deck (editable)</span><br><span class="d">PowerPoint with native charts (coming soon)</span></span></a><a class="dl pending" href="downloads/KavionLens360_MIS.xlsx"><span class="kind">XLSX</span><span><span class="t">Excel MIS</span><br><span class="d">7 sheets: XLOOKUP, SUMIFS, PivotTables, Power Query (coming soon)</span></span></a><a class="dl pending" href="downloads/KavionLens360_MIS.pdf"><span class="kind">PDF</span><span><span class="t">Excel MIS (print)</span><br><span class="d">The MIS workbook as PDF (coming soon)</span></span></a><a class="dl pending" href="downloads/KavionLens360_PowerBI.pdf"><span class="kind">PDF</span><span><span class="t">Power BI report</span><br><span class="d">5-page Power BI export (coming soon)</span></span></a></div>
+  <h3 style="margin-top:24px">Code</h3>
+  <div class="downloads"><a class="dl" href="https://github.com/rudraakshreddy/kavionlens360/blob/main/sql"><span class="kind">SQL</span><span><span class="t">Pipeline SQL</span><br><span class="d">Staging, cleaning, model, Customer 360, DQ</span></span></a><a class="dl" href="https://github.com/rudraakshreddy/kavionlens360/blob/main/sql/07_analytical_questions.sql"><span class="kind">SQL</span><span><span class="t">26 analytical questions</span><br><span class="d">CTEs and window functions</span></span></a><a class="dl" href="https://github.com/rudraakshreddy/kavionlens360/blob/main/notebooks"><span class="kind">IPYNB</span><span><span class="t">Notebooks</span><br><span class="d">Profiling, EDA and statistics, segmentation, scoring</span></span></a><a class="dl" href="https://github.com/rudraakshreddy/kavionlens360/blob/main/powerbi"><span class="kind">PBIP</span><span><span class="t">Power BI project</span><br><span class="d">TMDL model + PBIR report, text-based</span></span></a></div>
+</div></section>
+</main>
+<footer><div class="wrap">
+KavionLens360 · Bank Customer 360 &amp; Segmentation Analytics · portfolio project by Y. Rudraaksh Reddy ·
+built 03 Oct 2026 from <a href="https://github.com/rudraakshreddy/kavionlens360">github.com/rudraakshreddy/kavionlens360</a>.<br>
+Data: public Kaggle dataset “Bank Customer Segmentation (1M+ Transactions)”, an Indian bank, 2016. It is not ICICI Bank data
+and nothing here describes any bank's internal systems. Opportunity flags are behavioural signals, not product recommendations or credit decisions.
+</div></footer>
+</body>
+</html>

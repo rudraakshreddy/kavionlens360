@@ -29,6 +29,7 @@ SQL_STEPS = [
     "PYTHON",
     "06_publish.sql",
     "EXPORT",
+    "SITE",
 ]
 
 
@@ -61,9 +62,14 @@ def main():
             opportunity.run(run_id)
             print("  PYTHON segmentation + opportunity scoring", end="")
         elif step == "EXPORT":
-            from c360 import export
+            from c360 import export, sql_answers
             export.run()
-            print("  EXPORT aggregated extracts written", end="")
+            sql_answers.run(verbose=False)
+            print("  EXPORT aggregated extracts + SQL answers written", end="")
+        elif step == "SITE":
+            from c360 import site
+            site.build()
+            print("  SITE  GitHub Pages report and dashboard rebuilt in docs/", end="")
         else:
             db.run_sql_file(step)
             print(f"  {step}", end="")

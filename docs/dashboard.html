@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KavionLens360 Dashboard</title>
+<meta name="description" content="Interactive Customer 360 dashboard: executive view, segments, cross-sell signals, manager action list, data quality.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='%232a78d6' stroke-width='4'/%3E%3Cpath d='M21 21l7 7' stroke='%232a78d6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/theme.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+<a class="brand" href="index.html"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="14" r="9" fill="none" stroke="var(--accent)" stroke-width="4"/><path d="M21 21l7 7" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/></svg>KavionLens360</a>
+<nav class="nav" aria-label="Site"><a href="index.html">Report</a><a href="dashboard.html" aria-current="page">Dashboard</a><a href="index.html#downloads" class="hide-sm">Downloads</a><a href="https://github.com/rudraakshreddy/kavionlens360">GitHub</a></nav>
+<button class="theme-btn" id="theme-btn" type="button" aria-label="Toggle theme">☾</button>
+</div></header>
+
+<main class="wrap">
+<div class="dash-head">
+  <h1 style="font-size:28px">Customer 360 dashboard</h1>
+  <p class="disclaimer" id="asof">Loading…</p>
+</div>
+<div id="loading" class="loading">Loading dashboard data…</div>
+<div id="dash" hidden>
+  <div class="filters" id="filters" role="group" aria-label="Filters"></div>
+  <div class="active-filters" id="active-filters"></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" type="button">1 · Executive</button><button role="tab" type="button">2 · Segmentation</button>
+    <button role="tab" type="button">3 · Cross-sell</button><button role="tab" type="button">4 · Manager action</button>
+    <button role="tab" type="button">5 · Data quality</button>
+  </div>
+
+  <div class="panel" id="executive">
+    <div class="kpis" id="kpi-exec"></div>
+    <div class="grid">
+      <div class="card span-5" id="c-agegender"><div class="card-tools"><div><h3>Customers by age group and gender</h3><div class="q">Who are the customers?</div></div><button class="view-toggle" type="button">Table</button></div><div class="legend"></div><div class="chart "><canvas role="img" aria-label="Customers by age group and gender"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-7" id="c-trend"><div class="card-tools"><div><h3>Daily transactions</h3><div class="q"></div></div><button class="view-toggle" type="button">Table</button></div><div class="chart "><canvas role="img" aria-label="Daily transactions"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-6" id="c-cities"><div class="card-tools"><div><h3>Top cities by transaction value</h3><div class="q">Where is the value?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart tall"><canvas role="img" aria-label="Top cities by transaction value"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-6" id="c-segdist"><div class="card-tools"><div><h3>Customers by segment</h3><div class="q">How is the base split?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart tall"><canvas role="img" aria-label="Customers by segment"></canvas></div><div class="tableview"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="segmentation" hidden>
+    <div class="kpis" id="kpi-seg"></div>
+    <div class="grid">
+      <div class="card span-6" id="c-sizevalue"><div class="card-tools"><div><h3>Share of customers vs share of value</h3><div class="q">Where does each segment sit?</div></div><button class="view-toggle" type="button">Table</button></div><div class="legend"></div><div class="chart "><canvas role="img" aria-label="Share of customers vs share of value"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-6" id="c-agemix"><div class="card-tools"><div><h3>Age mix by segment</h3><div class="q">Do segments differ by life stage?</div></div><button class="view-toggle" type="button">Table</button></div><div class="legend"></div><div class="chart "><canvas role="img" aria-label="Age mix by segment"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-12"><h3>Segment profile</h3><div class="q">Responds to all filters except Segment</div><div class="table-wrap" id="t-profile"></div></div>
+      <div class="card span-12"><h3>Segment actions</h3><div class="q">Named action, owner, timing and KPI per segment</div><div class="table-wrap" id="t-actions"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="crosssell" hidden>
+    <div class="banner"><strong>Signals inferred from behaviour. Product ownership unknown.</strong> Not eligibility or credit decisions.</div>
+    <div class="kpis" id="kpi-cs"></div>
+    <div class="grid">
+      <div class="card span-5" id="c-themes"><div class="card-tools"><div><h3>Customers by product signal</h3><div class="q">Which conversations are signalled?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart "><canvas role="img" aria-label="Customers by product signal"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-7"><h3>Signal rate by segment</h3><div class="q">Share of each segment carrying each signal</div><div class="table-wrap" id="t-heat"></div></div>
+      <div class="card span-4" id="c-tiers"><div class="card-tools"><div><h3>Priority tiers</h3><div class="q">How many customers per tier?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart short"><canvas role="img" aria-label="Priority tiers"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-8" id="c-score"><div class="card-tools"><div><h3>Opportunity score distribution</h3><div class="q">Does the score separate customers? (all customers)</div></div><button class="view-toggle" type="button">Table</button></div><div class="legend"></div><div class="chart short"><canvas role="img" aria-label="Opportunity score distribution"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-12" id="c-oppcity"><div class="card-tools"><div><h3>Customers with a signal, by city</h3><div class="q">Where are the opportunities?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart "><canvas role="img" aria-label="Customers with a signal, by city"></canvas></div><div class="tableview"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="manager" hidden>
+    <div class="kpis" id="kpi-mgr"></div>
+    <div class="grid">
+      <div class="card span-12">
+        <div class="card-tools"><div><h3>Priority customers: who, why, what, where</h3><div class="q">Top 2,000 by score · IDs masked</div></div>
+        <label style="font-size:12px;color:var(--ink-2);font-weight:600">Product theme <select id="f-theme" style="font:inherit;font-size:13px"></select></label></div>
+        <div class="table-wrap" id="t-priority"></div>
+        <div class="pager"><span id="pager-info"></span><button id="prev" type="button">‹ Prev</button><button id="next" type="button">Next ›</button></div>
+      </div>
+      <div class="card span-6" id="c-mgrtier"><div class="card-tools"><div><h3>Customers by tier</h3><div class="q">How large is each tier?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart short"><canvas role="img" aria-label="Customers by tier"></canvas></div><div class="tableview"></div></div>
+      <div class="card span-6" id="c-mgrcity"><div class="card-tools"><div><h3>Tier A customers by city</h3><div class="q">Where are they?</div></div><button class="view-toggle" type="button">Table</button></div><div class="chart short"><canvas role="img" aria-label="Tier A customers by city"></canvas></div><div class="tableview"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="dataquality" hidden>
+    <div class="grid">
+      <div class="card span-6"><h3>Reconciliation</h3><div class="q">Dashboard totals vs the SQL reference table</div><div class="table-wrap" id="t-recon"></div></div>
+      <div class="card span-6"><h3>Row waterfall</h3><div class="q">Raw rows → rejected → clean</div><div class="table-wrap" id="t-waterfall"></div></div>
+      <div class="card span-12"><h3>Data quality scorecard</h3><div class="q">24 checks across completeness, accuracy, consistency, uniqueness, validity, timeliness</div><div class="table-wrap" id="t-dq"></div></div>
+    </div>
+  </div>
+</div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="assets/dashboard.js"></script>
+<footer><div class="wrap">
+KavionLens360 · Bank Customer 360 &amp; Segmentation Analytics · portfolio project by Y. Rudraaksh Reddy ·
+built 03 Oct 2026 from <a href="https://github.com/rudraakshreddy/kavionlens360">github.com/rudraakshreddy/kavionlens360</a>.<br>
+Data: public Kaggle dataset “Bank Customer Segmentation (1M+ Transactions)”, an Indian bank, 2016. It is not ICICI Bank data
+and nothing here describes any bank's internal systems. Opportunity flags are behavioural signals, not product recommendations or credit decisions.
+</div></footer>
+</body>
+</html>
