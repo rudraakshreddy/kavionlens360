@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Addressable Balance",
-              "nativeQueryRef": "Addressable Balance"
+              "nativeQueryRef": "How large: addressable balance (Rs)",
+              "displayName": "How large: addressable balance (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'How large: addressable balance (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Avg Txn Value",
-              "nativeQueryRef": "Avg Txn Value"
+              "nativeQueryRef": "Avg transaction (Rs)",
+              "displayName": "Avg transaction (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Avg transaction (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

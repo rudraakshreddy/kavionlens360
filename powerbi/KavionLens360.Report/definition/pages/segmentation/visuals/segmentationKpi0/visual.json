@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Total Customers",
-              "nativeQueryRef": "Total Customers"
+              "nativeQueryRef": "Customers in selection",
+              "displayName": "Customers in selection"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Customers in selection'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Segment Value %",
-              "nativeQueryRef": "Segment Value %"
+              "nativeQueryRef": "Share of value",
+              "displayName": "Share of value"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Share of value'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -126,7 +126,7 @@ ORDER BY dimension, sort_key;
 SELECT customer_id, clean_city, txn_count, txns_first_half, txns_second_half, last_txn_date, recency_days
 FROM customer_360
 WHERE activity_trend = 'Declining'
-ORDER BY (txns_first_half - txns_second_half) DESC, total_txn_value DESC
+ORDER BY (txns_first_half - txns_second_half) DESC, total_txn_value DESC, customer_id
 LIMIT 100;
 
 -- Q14. Rank customers within each city by total value (RANK ... PARTITION BY city); top 3 per top-10 city
@@ -140,7 +140,7 @@ ranked AS (
     FROM customer_360
     WHERE clean_city IN (SELECT clean_city FROM top_cities)
 )
-SELECT * FROM ranked WHERE rank_in_city <= 3 ORDER BY clean_city, rank_in_city;
+SELECT * FROM ranked WHERE rank_in_city <= 3 ORDER BY clean_city, rank_in_city, customer_id;
 
 -- Q15. Customer percentile and decile of balance (PERCENT_RANK, NTILE(10)) - decile summary
 WITH b AS (
@@ -193,7 +193,7 @@ SELECT c.customer_id, c.clean_city, c.avg_balance, c.txn_count, c.recency_days, 
 FROM customer_360 c, customer_thresholds t
 WHERE c.avg_balance >= t.avg_balance_p75
   AND c.is_low_engagement
-ORDER BY c.avg_balance DESC
+ORDER BY c.avg_balance DESC, c.customer_id
 LIMIT 100;
 
 -- Q19. Average balance by city tier and for the top-20 cities by customers (subquery)
@@ -216,7 +216,7 @@ SELECT customer_id, clean_city, avg_txn_value, latest_balance,
        ROUND(txn_to_balance_ratio, 4) AS txn_to_balance_ratio
 FROM customer_360
 WHERE txn_to_balance_ratio IS NOT NULL
-ORDER BY txn_to_balance_ratio DESC
+ORDER BY txn_to_balance_ratio DESC, customer_id
 LIMIT 100;
 
 -- Q21. Share of customers with missing DOB, gender or location

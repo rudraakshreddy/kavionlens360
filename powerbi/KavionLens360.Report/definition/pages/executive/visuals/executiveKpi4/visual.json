@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Active Rate",
-              "nativeQueryRef": "Active Rate"
+              "nativeQueryRef": "Active rate (seen ≤15 days)",
+              "displayName": "Active rate (seen ≤15 days)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Active rate (seen ≤15 days)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

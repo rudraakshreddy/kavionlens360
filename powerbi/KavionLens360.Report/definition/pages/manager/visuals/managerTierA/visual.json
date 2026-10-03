@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Tier A Customers",
-              "nativeQueryRef": "Tier A Customers"
+              "nativeQueryRef": "Tier A customers",
+              "displayName": "Tier A customers"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Tier A customers'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

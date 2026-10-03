@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Addressable Balance",
-              "nativeQueryRef": "Addressable Balance"
+              "nativeQueryRef": "Addressable balance (Rs)",
+              "displayName": "Addressable balance (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Addressable balance (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

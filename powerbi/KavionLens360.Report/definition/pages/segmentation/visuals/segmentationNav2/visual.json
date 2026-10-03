@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "segmentationNav2",
   "position": {
-    "x": 990,
+    "x": 1018,
     "y": 14,
     "z": 4,
-    "height": 34,
-    "width": 94,
+    "height": 36,
+    "width": 118,
     "tabOrder": 4
   },
   "visual": {

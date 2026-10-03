@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Median Balance",
-              "nativeQueryRef": "Median Balance"
+              "nativeQueryRef": "Median balance (Rs)",
+              "displayName": "Median balance (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Median balance (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

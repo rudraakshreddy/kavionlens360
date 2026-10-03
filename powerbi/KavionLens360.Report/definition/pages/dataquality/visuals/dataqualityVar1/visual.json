@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Reconciliation Variance (Customers)",
-              "nativeQueryRef": "Reconciliation Variance (Customers)"
+              "nativeQueryRef": "Customers: Power BI - SQL",
+              "displayName": "Customers: Power BI - SQL"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Customers: Power BI - SQL'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

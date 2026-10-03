@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Reconciliation Variance (Value)",
-              "nativeQueryRef": "Reconciliation Variance (Value)"
+              "nativeQueryRef": "Value: Power BI - SQL (Rs)",
+              "displayName": "Value: Power BI - SQL (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Value: Power BI - SQL (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

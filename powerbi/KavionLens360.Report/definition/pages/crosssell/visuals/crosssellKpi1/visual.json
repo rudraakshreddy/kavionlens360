@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Cross-Sell Opp Rate",
-              "nativeQueryRef": "Cross-Sell Opp Rate"
+              "nativeQueryRef": "Opportunity rate",
+              "displayName": "Opportunity rate"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Opportunity rate'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

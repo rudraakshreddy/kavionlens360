@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.High Value Customers",
-              "nativeQueryRef": "High Value Customers"
+              "nativeQueryRef": "High-value customers",
+              "displayName": "High-value customers"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'High-value customers'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

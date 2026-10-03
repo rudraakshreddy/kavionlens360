@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Avg Recency Days",
-              "nativeQueryRef": "Avg Recency Days"
+              "nativeQueryRef": "Avg days since last txn",
+              "displayName": "Avg days since last txn"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Avg days since last txn'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "crosssellNav3",
   "position": {
-    "x": 1090,
+    "x": 1142,
     "y": 14,
     "z": 5,
-    "height": 34,
-    "width": 94,
+    "height": 36,
+    "width": 118,
     "tabOrder": 5
   },
   "visual": {
@@ -29,7 +29,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'5 Reconciliation'"
+                  "Value": "'5 Quality'"
                 }
               }
             }

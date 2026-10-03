@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Avg Opp Score",
-              "nativeQueryRef": "Avg Opp Score"
+              "nativeQueryRef": "Avg opportunity score",
+              "displayName": "Avg opportunity score"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Avg opportunity score'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

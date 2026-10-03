@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Total Txn Value",
-              "nativeQueryRef": "Total Txn Value"
+              "nativeQueryRef": "Transaction value (Rs)",
+              "displayName": "Transaction value (Rs)"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Transaction value (Rs)'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

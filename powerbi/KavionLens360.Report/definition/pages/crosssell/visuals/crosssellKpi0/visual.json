@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Opportunity Count",
-              "nativeQueryRef": "Opportunity Count"
+              "nativeQueryRef": "Customers with ≥1 signal",
+              "displayName": "Customers with ≥1 signal"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Customers with ≥1 signal'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

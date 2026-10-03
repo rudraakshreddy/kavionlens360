@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Txn Frequency",
-              "nativeQueryRef": "Txn Frequency"
+              "nativeQueryRef": "Txns per customer",
+              "displayName": "Txns per customer"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Txns per customer'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -27,33 +27,12 @@
                 }
               },
               "queryRef": "customer_360.Segment Size %",
-              "nativeQueryRef": "Segment Size %"
+              "nativeQueryRef": "Share of customers",
+              "displayName": "Share of customers"
             }
           ]
         }
       }
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Share of customers'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }
