@@ -194,7 +194,63 @@ def export_site():
             "bytes": (SITE_DATA / "dashboard.json").stat().st_size}
 
 
+# --------------------------------------------------------------------------- Excel MIS extracts
+XL_DIR = EXPORT_DIR / "excel"
+
+
+def export_excel():
+    """Small, aggregated extracts for the Excel MIS (spec 18: no raw rows in Excel)."""
+    XL_DIR.mkdir(parents=True, exist_ok=True)
+    c = db.query("""
+        SELECT s.segment_id, s.segment_name, c.age_group, c.gender, c.clean_city, c.city_tier, o.tier, c.evidence_level,
+               CASE WHEN c.latest_balance IS NULL THEN '0. Unknown' WHEN c.latest_balance < 1 THEN '1. Zero (< 1)'
+                    WHEN c.latest_balance < 1000 THEN '2. 1-999' WHEN c.latest_balance < 10000 THEN '3. 1K-9.9K'
+                    WHEN c.latest_balance < 50000 THEN '4. 10K-49.9K' WHEN c.latest_balance < 100000 THEN '5. 50K-99.9K'
+                    WHEN c.latest_balance < 1000000 THEN '6. 1L-9.9L' ELSE '7. 10L+' END AS balance_band,
+               c.txn_count, c.total_txn_value::float AS value, c.avg_balance::float AS avg_balance,
+               c.latest_balance::float AS latest_balance, c.is_active::int AS active, c.is_high_value::int AS high_value,
+               o.any_signal::int AS any_signal, o.overall_score::float AS score,
+               o.sig_investment::int AS sig_investment, o.sig_premium::int AS sig_premium,
+               o.sig_credit_card::int AS sig_credit_card, o.sig_insurance::int AS sig_insurance,
+               o.sig_personal_loan::int AS sig_personal_loan, o.sig_reengagement::int AS sig_reengagement
+        FROM customer_360 c JOIN customer_segment s USING (customer_id) JOIN customer_opportunity o USING (customer_id)
+    """)
+    top = (c[c.clean_city != "UNKNOWN"].groupby("clean_city")["value"].sum().sort_values(ascending=False).head(TOP_CITIES).index)
+    c["city"] = np.where(c.clean_city.isin(top), c.clean_city, np.where(c.clean_city == "UNKNOWN", "UNKNOWN", "OTHER CITIES"))
+    c["addressable"] = np.where(c.any_signal == 1, c.latest_balance.fillna(0), 0)
+    keys = ["segment_id", "segment_name", "age_group", "gender", "city", "city_tier", "tier", "evidence_level", "balance_band"]
+    cube = c.groupby(keys, as_index=False).agg(
+        customers=("value", "size"), txns=("txn_count", "sum"), value=("value", "sum"),
+        balance_sum=("avg_balance", "sum"), balance_n=("avg_balance", "count"), active=("active", "sum"),
+        high_value=("high_value", "sum"), any_signal=("any_signal", "sum"), addressable=("addressable", "sum"),
+        score_sum=("score", "sum"), **{k: (k, "sum") for k in [f"sig_{t}" for t in THEMES]})
+    cube.round(2).to_csv(XL_DIR / "cube.csv", index=False)
+
+    db.query("""SELECT o.priority_rank AS customer_ref, o.masked_id, c.clean_city AS city, s.segment_name AS segment,
+                       c.age_group, c.gender, c.txn_count, ROUND(c.total_txn_value::numeric, 2) AS total_value,
+                       ROUND(c.latest_balance::numeric, 2) AS latest_balance, c.recency_days, o.tier,
+                       ROUND(o.overall_score::numeric, 2) AS score, o.driving_theme_label AS theme, c.evidence_level
+                FROM customer_opportunity o JOIN customer_360 c USING (customer_id) JOIN customer_segment s USING (customer_id)
+                WHERE o.priority_rank <= 2000 OR c.customer_id IN (
+                      SELECT customer_id FROM customer_360 ORDER BY total_txn_value DESC, customer_id LIMIT 100)
+                ORDER BY o.priority_rank""").to_csv(XL_DIR / "customer_lookup.csv", index=False)
+    db.query("""SELECT o.priority_rank AS customer_ref, o.masked_id, ROUND(o.overall_score::numeric, 2) AS score,
+                       o.driving_theme_label AS theme, ROUND(c.latest_balance::numeric, 0) AS latest_balance
+                FROM customer_opportunity o JOIN customer_360 c USING (customer_id)
+                WHERE o.tier = 'A' ORDER BY o.priority_rank LIMIT 300""").to_csv(XL_DIR / "tier_a_list.csv", index=False)
+    db.query("""SELECT o.priority_rank AS customer_ref FROM customer_360 c JOIN customer_opportunity o USING (customer_id)
+                ORDER BY c.total_txn_value DESC, c.customer_id LIMIT 100""").to_csv(XL_DIR / "top100_value.csv", index=False)
+    db.query("SELECT * FROM agg_city_summary ORDER BY value_rank LIMIT 25").to_csv(XL_DIR / "city_top25.csv", index=False)
+    db.query("SELECT kpi, sql_value::float AS sql_value FROM kpi_reconciliation").to_csv(XL_DIR / "kpi_sql.csv", index=False)
+    db.query("""SELECT segment_id, segment_name, potential_needs, action, owner, timing, kpi
+                FROM segment_definition ORDER BY segment_id""").to_csv(XL_DIR / "segment_definition.csv", index=False)
+    pp = db.query("SELECT as_of_date, window_start, window_end FROM project_params")
+    pp.to_csv(XL_DIR / "params.csv", index=False)
+    return {"cube_rows": len(cube)}
+
+
 def run():
+    export_excel()
     counts = export_powerbi()
     site = export_site()
     (OUTPUT_DIR / "export_log.json").write_text(json.dumps({"powerbi": counts, "site": site}, indent=2), encoding="utf-8")
