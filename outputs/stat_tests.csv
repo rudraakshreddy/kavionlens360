@@ -1,0 +1,5 @@
+test,hypothesis (H1 of the test),statistic,p_value,effect,effect_size,detail
+Mann-Whitney U,Avg ticket differs between men and women,"U=63,717,136,297",< 1e-300,rank-biserial r,0.07912676213220182,median M Rs 473 vs F Rs 560
+Kruskal-Wallis,Avg balance differs across age groups,"H=49,822",< 1e-300,epsilon²,0.06248686473790252,"medians: 18-24 Rs 9,741, 25-34 Rs 17,614, 35-44 Rs 31,889, 45-54 Rs 44,941, 55-64 Rs 52,414, 65+ Rs 54,368"
+Spearman,Balance is associated with transaction value,rho=0.296,< 1e-300,rho,0.2964509640228437,
+Chi-square,High-value share differs by city tier,"chi2=2,281, dof=2",< 1e-300,Cramer's V,0.05207186638314577,"high-value %: Metro satellite 18.8%, Other 15.5%, Tier 1 metro 19.8%"

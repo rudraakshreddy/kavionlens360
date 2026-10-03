@@ -1,0 +1,13 @@
+dimension,value,sort_key,txns,avg_txns_per_day
+day_of_week,Monday,1,142971,20424.0
+day_of_week,Tuesday,2,138127,19732.0
+day_of_week,Wednesday,3,142108,20301.0
+day_of_week,Thursday,4,144205,20601.0
+day_of_week,Friday,5,124304,20717.0
+day_of_week,Saturday,6,148390,24732.0
+day_of_week,Sunday,7,148842,24807.0
+time_band,Early morning (00-05),0,45105,
+time_band,Morning (06-11),6,167709,
+time_band,Afternoon (12-16),12,299860,
+time_band,Evening (17-20),17,318678,
+time_band,Night (21-23),21,157595,

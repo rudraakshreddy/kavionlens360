@@ -1,0 +1,24 @@
+{
+  "powerbi": {
+    "dim_date": 46,
+    "dim_location": 8773,
+    "customer_360": 841543,
+    "customer_segment": 841543,
+    "customer_opportunity": 841543,
+    "segment_definition": 5,
+    "agg_daily_city": 77846,
+    "agg_hour_weekday": 168,
+    "agg_city_summary": 8476,
+    "agg_segment_summary": 5,
+    "agg_theme_segment": 30,
+    "kpi_reconciliation": 11,
+    "dq_log": 24,
+    "row_waterfall": 4,
+    "opportunity_sensitivity": 8
+  },
+  "site": {
+    "cube_rows": 6064,
+    "priority_rows": 2000,
+    "bytes": 1352076
+  }
+}

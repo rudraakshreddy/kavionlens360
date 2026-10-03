@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    container_name: c360-postgres
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    ports:
+      - "${PGPORT}:5432"
+    volumes:
+      - c360-pgdata:/var/lib/postgresql/data
+    command: ["postgres", "-c", "work_mem=256MB", "-c", "maintenance_work_mem=512MB", "-c", "shared_buffers=1GB"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}"]
+      interval: 5s
+      retries: 20
+
+volumes:
+  c360-pgdata:

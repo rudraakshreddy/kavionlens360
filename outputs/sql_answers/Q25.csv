@@ -1,0 +1,101 @@
+clean_city,rank_in_city,customer_id,overall_score,driving_theme
+BANGALORE,1,C4***981,99.01,investment
+BANGALORE,2,C1***191,98.86,investment
+BANGALORE,3,C4***511,98.18,investment
+BANGALORE,4,C1***851,98.04,investment
+BANGALORE,5,C4***475,97.98,investment
+BANGALORE,6,C4***262,97.84,investment
+BANGALORE,7,C1***659,97.59,investment
+BANGALORE,8,C4***053,97.42,investment
+BANGALORE,9,C2***038,97.38,investment
+BANGALORE,10,C5***955,97.28,investment
+BANGALORE,11,C2***363,97.27,investment
+BANGALORE,12,C4***015,97.15,investment
+BANGALORE,13,C6***291,97.12,investment
+BANGALORE,14,C2***560,97.04,investment
+BANGALORE,15,C8***018,97.03,investment
+BANGALORE,16,C6***774,96.89,investment
+BANGALORE,17,C3***014,96.78,investment
+BANGALORE,18,C7***036,96.74,investment
+BANGALORE,19,C8***664,96.72,investment
+BANGALORE,20,C4***011,96.7,investment
+DELHI,1,C6***460,99.04,investment
+DELHI,2,C6***166,98.37,investment
+DELHI,3,C8***533,98.22,investment
+DELHI,4,C1***885,97.84,investment
+DELHI,5,C7***262,97.64,investment
+DELHI,6,C8***865,96.41,investment
+DELHI,7,C7***511,96.25,investment
+DELHI,8,C3***455,95.98,credit_card
+DELHI,9,C5***741,95.93,credit_card
+DELHI,10,C3***564,95.76,investment
+DELHI,11,C5***763,95.55,credit_card
+DELHI,12,C5***669,95.51,investment
+DELHI,13,C8***864,95.37,investment
+DELHI,14,C2***223,95.36,investment
+DELHI,15,C6***588,95.36,investment
+DELHI,16,C2***636,95.34,investment
+DELHI,17,C3***178,95.27,investment
+DELHI,18,C6***434,95.27,investment
+DELHI,19,C8***077,95.16,investment
+DELHI,20,C6***939,95.02,investment
+GURGAON,1,C3***689,98.82,investment
+GURGAON,2,C8***122,97.75,investment
+GURGAON,3,C1***638,97.36,investment
+GURGAON,4,C8***157,97.3,investment
+GURGAON,5,C3***111,96.85,investment
+GURGAON,6,C3***386,96.53,investment
+GURGAON,7,C4***551,96.45,investment
+GURGAON,8,C4***985,96.21,investment
+GURGAON,9,C3***161,95.94,investment
+GURGAON,10,C5***552,95.84,credit_card
+GURGAON,11,C7***113,95.82,investment
+GURGAON,12,C1***449,95.68,investment
+GURGAON,13,C6***016,95.64,investment
+GURGAON,14,C6***585,95.37,investment
+GURGAON,15,C4***239,95.23,investment
+GURGAON,16,C4***939,95.16,credit_card
+GURGAON,17,C4***822,95.05,investment
+GURGAON,18,C3***761,95.03,credit_card
+GURGAON,19,C8***076,95.01,investment
+GURGAON,20,C7***417,94.99,investment
+MUMBAI,1,C3***087,99.28,investment
+MUMBAI,2,C8***043,98.79,investment
+MUMBAI,3,C5***129,98.61,investment
+MUMBAI,4,C2***074,98.2,investment
+MUMBAI,5,C3***511,98.2,investment
+MUMBAI,6,C8***028,97.67,investment
+MUMBAI,7,C6***642,97.26,investment
+MUMBAI,8,C1***947,97.14,investment
+MUMBAI,9,C5***025,97.02,investment
+MUMBAI,10,C4***842,96.99,investment
+MUMBAI,11,C5***962,96.92,investment
+MUMBAI,12,C3***831,96.87,investment
+MUMBAI,13,C1***247,96.77,investment
+MUMBAI,14,C7***289,96.53,investment
+MUMBAI,15,C2***887,96.4,investment
+MUMBAI,16,C3***188,96.38,investment
+MUMBAI,17,C7***560,96.38,investment
+MUMBAI,18,C2***513,96.29,investment
+MUMBAI,19,C2***829,96.21,investment
+MUMBAI,20,C3***624,96.16,investment
+NEW DELHI,1,C6***580,98.95,investment
+NEW DELHI,2,C4***246,98.73,investment
+NEW DELHI,3,C1***341,98.37,investment
+NEW DELHI,4,C6***450,97.92,investment
+NEW DELHI,5,C2***173,97.7,investment
+NEW DELHI,6,C1***943,97.69,investment
+NEW DELHI,7,C3***054,97.37,investment
+NEW DELHI,8,C6***416,97.26,investment
+NEW DELHI,9,C7***828,97.16,investment
+NEW DELHI,10,C2***080,97.13,investment
+NEW DELHI,11,C8***439,97.08,investment
+NEW DELHI,12,C6***169,96.88,investment
+NEW DELHI,13,C3***067,96.85,investment
+NEW DELHI,14,C7***536,96.8,investment
+NEW DELHI,15,C6***331,96.7,investment
+NEW DELHI,16,C6***656,96.63,investment
+NEW DELHI,17,C3***318,96.44,investment
+NEW DELHI,18,C5***167,96.31,investment
+NEW DELHI,19,C4***167,96.24,investment
+NEW DELHI,20,C8***937,96.22,investment

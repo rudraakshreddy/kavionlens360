@@ -1,0 +1,5 @@
+step_no,step,rows
+0,Raw rows in staging,1048567
+11,Rejected: PARTIAL_COVERAGE_PERIOD,-58826
+12,Rejected: ZERO_AMOUNT,-794
+99,Clean rows,988947

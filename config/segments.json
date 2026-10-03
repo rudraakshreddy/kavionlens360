@@ -1,0 +1,59 @@
+{
+  "_comment": "Segment design and names, assigned AFTER reviewing cluster profiles (spec 12.3/12.4). Cluster keys J0..J4 are K-Means clusters relabelled by descending mean Value_Score. 'expect' is a pandas query on the segment profile that must hold, so a re-run cannot attach a name to the wrong cluster.",
+  "design": "joint",
+  "k": {"J": 5},
+  "use_age": false,
+  "selection_note": "Joint K-Means k=5 chosen over the layered 3+3 design: higher silhouette (0.279 vs ~0.267), every segment >= 3% of customers (layered had a 1.9% segment), ARI >= 0.93 across 5 seeds. Age lowered silhouette at every k, so it is used for profiling only. Single vs repeat (spec layer 1) is kept as the evidence tag.",
+  "segments": [
+    {
+      "cluster_key": "J0", "segment_id": 1, "segment_name": "Engaged Repeat Users",
+      "customer_characteristics": "Late twenties to early thirties, slightly more male, metro-heavy like the base",
+      "transaction_characteristics": "Two or more transactions in the window, mid-size tickets, seen recently",
+      "financial_behaviour": "Mid-to-high balances; the largest share of high-value customers outside the one-time groups",
+      "potential_needs": "Investment / MF, credit card, premium account",
+      "action": "Deepen the relationship: RM introduction call, needs review, bundle offer",
+      "owner": "Relationship Manager", "timing": "Within 2 weeks", "kpi": "Products discussed per contact; repeat activity next 30 days",
+      "expect": "mean_txn_count > 1.5"
+    },
+    {
+      "cluster_key": "J1", "segment_id": 2, "segment_name": "Recent One-Time Spenders",
+      "customer_characteristics": "Same age and city mix as the base",
+      "transaction_characteristics": "One mid-size transaction (around Rs 1,000) in the last two weeks of the window",
+      "financial_behaviour": "Mid balances, comparable to Engaged Repeat Users",
+      "potential_needs": "Debit / credit card usage, digital banking activation",
+      "action": "Convert to repeat use: welcome-back nudge and digital activation while the visit is recent",
+      "owner": "Branch / Digital team", "timing": "Within 7 days of the transaction", "kpi": "Second transaction within 30 days",
+      "expect": "mean_txn_count < 1.2 and pct_active > 50 and median_avg_txn > 400"
+    },
+    {
+      "cluster_key": "J2", "segment_id": 3, "segment_name": "Lapsed One-Time Spenders",
+      "customer_characteristics": "Same age and city mix as the base",
+      "transaction_characteristics": "One mid-size transaction, last seen more than two weeks before the as-of date",
+      "financial_behaviour": "Mid balances; value comparable to recent spenders but not seen recently",
+      "potential_needs": "Re-engagement before the relationship goes quiet",
+      "action": "Win-back: service call or message to understand needs; offer relevant product review",
+      "owner": "Relationship Manager / Contact centre", "timing": "This month", "kpi": "Share re-activated within 30 days",
+      "expect": "mean_txn_count < 1.2 and pct_active < 5 and median_avg_txn > 400"
+    },
+    {
+      "cluster_key": "J3", "segment_id": 4, "segment_name": "Low-Ticket Occasional",
+      "customer_characteristics": "Slightly younger than the base, less metro-concentrated",
+      "transaction_characteristics": "One small transaction (around Rs 100)",
+      "financial_behaviour": "Lower balances; very small share of total value",
+      "potential_needs": "Basic digital banking, small-ticket payments",
+      "action": "Low-cost digital nurture only; no RM time",
+      "owner": "Digital marketing", "timing": "Automated", "kpi": "Digital engagement rate; cost per contact",
+      "expect": "median_avg_txn < 200 and median_avg_balance > 1000"
+    },
+    {
+      "cluster_key": "J4", "segment_id": 5, "segment_name": "Near-Zero Balance",
+      "customer_characteristics": "Younger, more male, less metro-concentrated",
+      "transaction_characteristics": "Usually one small-to-mid transaction",
+      "financial_behaviour": "Balance close to zero (median under Rs 1,000)",
+      "potential_needs": "Account activation, minimum-balance or service check",
+      "action": "Service check and activation; exclude from cross-sell lists",
+      "owner": "Branch operations", "timing": "Quarterly review", "kpi": "Share with balance above Rs 1,000 next quarter",
+      "expect": "median_avg_balance < 1000"
+    }
+  ]
+}

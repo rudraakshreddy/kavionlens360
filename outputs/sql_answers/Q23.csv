@@ -1,0 +1,6 @@
+segment_name,customers,pct_customers,total_value,pct_value,mean_avg_balance
+Lapsed One-Time Spenders,214958,25.54,533554477.41,34.32,157665.0
+Recent One-Time Spenders,202993,24.12,516957376.29,33.25,168257.0
+Engaged Repeat Users,126468,15.03,436401323.47,28.07,118738.0
+Near-Zero Balance,79983,9.5,42277636.01,2.72,260.0
+Low-Ticket Occasional,217141,25.8,25583300.3,1.65,61872.0

@@ -1,0 +1,11 @@
+dimension,value,txns,avg_txn_value,median_txn_value
+age_group,18-24,209115,968.63,253.0
+age_group,25-34,510635,1345.08,420.0
+age_group,35-44,155935,2046.88,669.7
+age_group,45-54,45380,2695.43,819.0
+age_group,55-64,16802,3028.8,882.0
+age_group,65+,7547,3255.7,880.0
+age_group,Unknown,43533,3409.25,1000.0
+gender,F,261113,1649.52,503.5
+gender,M,727048,1543.54,430.0
+gender,Unknown,786,2329.84,300.0
